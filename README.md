@@ -1,7 +1,7 @@
 # Proof of concept of a YOLO Node annotating images from the Gazebo camera plugin in ROS2
 
-A fixed Gazebo world (truck + traffic light) publishes `/camera/image_raw`.
-A minimal YOLOv8 node performs detection on CPU and publishes an annotated image for RViz.
+A fixed Gazebo world containing a truck and a traffic light publishes `/camera/image_raw`.
+A YOLOv8 node performs detection on CPU and publishes an annotated image for RViz.
 
 ## Quickstart
 ```bash
