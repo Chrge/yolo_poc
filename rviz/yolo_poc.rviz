@@ -1,0 +1,30 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/TF
+      Enabled: false
+      Name: TF
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Name: YOLO Annotated
+      Image Topic: /yolo/annotated
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+  Enabled: true
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/Measure
+  Transformation:
+    Current: ""
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 2
