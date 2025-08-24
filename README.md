@@ -5,18 +5,22 @@ A YOLOv8 node performs detection on the CPU and publishes an annotated image for
 
 ## Quickstart
 ```bash
-colcon build && source install/setup.bash
-ros2 launch yolo_poc yolo_with_gazebo.launch.py
+$ colcon build && source install/setup.bash
+$ ros2 launch yolo_poc yolo_with_gazebo.launch.py
 ```
 
 ### Experiment-Setup and Data-Pipeline
 The pipeline is: **Gazebo camera → ROS image → YOLOv8 detections → annotated image → RViz**.
 
-The proof-of-concept world contains an SUV-truck in the annotated image and a traffic light. A camera sensor looks at the scene from z = 2m as in [fig1] and streams images at 15 FPS to `/camera/image_raw`. Those frames are consumed by the YOLO node, which emits `vision_msgs/Detection2DArray` with the Bounding box and an annotated image topic that RViz displays.
+The proof-of-concept world contains an SUV-truck in the annotated image and a traffic light. A camera sensor looks at the scene from z = 2m as in [Figure_01](#Figure_01) and streams images at 15 FPS to `/camera/image_raw`. Those frames are consumed by the YOLO node, which emits `vision_msgs/Detection2DArray` with the Bounding box and an annotated image topic that RViz displays.
 
-<a id="fig1"></a>
-![POC setup](docs/POC-SETUP_IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png)
-**Figure 1: The setup in the Gazebo world consists of a SUV from the gazebo library, as well as a traffic light and a camera that is positioned at a height of 2 meters, facing in the direction of x**
+
+
+<div id="Figure_01" align="center">
+  <img src="docs/POC-SETUP_IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png" alt="POC Setup">
+  <br>
+  <em><strong>Figure 1: </strong> The setup in the Gazebo world consists of a SUV from the gazebo library, as well as a traffic light and a camera that is positioned at a height of 2 meters, facing in the direction of x.</em>
+</div>
 
 ### About the inner workings of the "Yolo-node"
 
@@ -24,20 +28,26 @@ The yolo_node subscribes to `/camera/image_raw` with a SENSOR_DATA QoS (KEEP_LAS
 
 An OpenCV overlay draws rectangles and labels on the incoming frame with `cv2.rectangle and cv2.putText`, then republishes the result as `sensor_msgs/Image`. At startup the node probes how to set BoundingBox2D.center: first by mutating center.x/y/theta, otherwise by assigning a full Pose2D. If both attempts fail it still publishes detections with `size_x/size_y` set and a default (0, 0, 0) center. The on-frame overlay remains correct, but subscribers that rely on `bbox.center` should account for this fallback.
 
-RViz subscribes to the annotated image produced by the node. Truck and traffic light are visualised with bounding boxes and confidences as in [fig2].
+RViz subscribes to the annotated image produced by the node. Truck and traffic light are visualised with bounding boxes and confidences as in [Figure_02](#Figure_02).
 
-<a id="fig2"></a>
-[![RViz annotated image](docs/yolo-annotated-image_in_rviz.png)](docs/yolo-annotated-image_in_rviz.png)
-![RViz annotated image with nomacs](docs/YOLO-ANNOTATED-IMAGE_IN_RVIZ.png)
-**Figure 2: Display of the yolo annotations and bounding boxes returned via the function callback within ROS2, in RViz2.**
+<a id="Figure_02"></a>
+
+<p align = "center">
+  <img src="docs/YOLO-ANNOTATED-IMAGE_IN_RVIZ.png" alt="POC Setup">
+  <em><strong>Figure 2:</strong> Display of the yolo annotations and bounding boxes returned via the function callback within ROS2, in RViz2.</em>
+  <br>
+</p>
+
 
 ### Fixed camera position in the Gazebo World
-For reproducibility, the camera pose is fixed in the world, aimed at both objects, so the model has clear features for detection as in figures [fig1-3].
 
-<a id="fig3"></a>
-[![Camera perspective](docs/camera-perspective-in-gazebo-with-yolo_truck-setup.png)](docs/camera-perspective-in-gazebo-with-yolo_truck-setup.png)
-![Camera perspective](docs/CAMERA-PERSPECTIVE-IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png)
-**Figure 3: Camera perspective in Gazebo shows the Gazebo world in the background and the camera's image of it as a smaller image in the lens in the foreground.**
+For reproducibility, the camera pose is fixed in the world, aimed at both objects, so the model has clear features for detection as in figures [Figure_03](#Figure_03).
+
+<div id="Figure_03" align="center">
+  <img src="docs/CAMERA-PERSPECTIVE-IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png" alt="POC Setup">
+  <br>
+  <em><strong>Figure 3:</strong> Camera perspective in Gazebo shows the Gazebo world in the background and the camera's image of it as a smaller image in the lens in the foreground.</em>
+</div>
 
 ## ROS2-Topics
 - **Input:** `/camera/image_raw` (`sensor_msgs/Image`)
