@@ -30,14 +30,11 @@ An OpenCV overlay draws rectangles and labels on the incoming frame with `cv2.re
 
 RViz subscribes to the annotated image produced by the node. Truck and traffic light are visualised with bounding boxes and confidences as in [Figure_02](#Figure_02).
 
-<a id="Figure_02"></a>
-
-<p align = "center">
+<div id="Figure_02" align="center">
   <img src="docs/YOLO-ANNOTATED-IMAGE_IN_RVIZ.png" alt="POC Setup">
-  <em><strong>Figure 2:</strong> Display of the yolo annotations and bounding boxes returned via the function callback within ROS2, in RViz2.</em>
   <br>
-</p>
-
+  <em><strong>Figure 2:</strong> Display of the yolo annotations and bounding boxes returned via the function callback within ROS2, in RViz2.</em>
+</div>
 
 ### Fixed camera position in the Gazebo World
 
