@@ -15,7 +15,7 @@ The pipeline is: **Gazebo camera → ROS image → YOLOv8 detections → annotat
 The proof-of-concept world contains an SUV-truck in the annotated image and a traffic light. A camera sensor looks at the scene from z = 2m as in [fig1] and streams images at 15 FPS to `/camera/image_raw`. Those frames are consumed by the YOLO node, which emits `vision_msgs/Detection2DArray` with the Bounding box and an annotated image topic that RViz displays.
 
 <a id="fig1"></a>
-[![POC setup](docs/poc-setup_in-gazebo-with-yolo_truck-setup.png)](docs/poc-setup_in-gazebo-with-yolo_truck-setup.png)
+![POC setup](docs/POC-SETUP_IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png)
 **Figure 1: The setup in the Gazebo world consists of a SUV from the gazebo library, as well as a traffic light and a camera that is positioned at a height of 2 meters, facing in the direction of x**
 
 ### About the inner workings of the "Yolo-node"
@@ -28,6 +28,7 @@ RViz subscribes to the annotated image produced by the node. Truck and traffic l
 
 <a id="fig2"></a>
 [![RViz annotated image](docs/yolo-annotated-image_in_rviz.png)](docs/yolo-annotated-image_in_rviz.png)
+![RViz annotated image with nomacs](docs/YOLO-ANNOTATED-IMAGE_IN_RVIZ.png)
 **Figure 2: Display of the yolo annotations and bounding boxes returned via the function callback within ROS2, in RViz2.**
 
 ### Fixed camera position in the Gazebo World
@@ -35,6 +36,7 @@ For reproducibility, the camera pose is fixed in the world, aimed at both object
 
 <a id="fig3"></a>
 [![Camera perspective](docs/camera-perspective-in-gazebo-with-yolo_truck-setup.png)](docs/camera-perspective-in-gazebo-with-yolo_truck-setup.png)
+![Camera perspective](docs/CAMERA-PERSPECTIVE-IN-GAZEBO-WITH-YOLO_TRUCK-SETUP.png)
 **Figure 3: Camera perspective in Gazebo shows the Gazebo world in the background and the camera's image of it as a smaller image in the lens in the foreground.**
 
 ## ROS2-Topics
